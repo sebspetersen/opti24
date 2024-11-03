@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTI24 | Lions Mane Capsules</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        :root {
+            --primary: #000000;
+            --accent: #ffffff;
+            --gradient: linear-gradient(135deg, #000 0%, #333 100%);
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--accent);
+            overflow-x: hidden;
+        }
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+
+        .loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader .logo-icon {
+            width: 120px;
+            height: 120px;
+            animation: pulse 2s infinite;
+        }
+
+        .loader .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-content .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-content .logo img {
+            height: 40px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-content .logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(45deg, #ffffff03 0px, #ffffff03 1px, transparent 1px, transparent 10px);
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .hero-content {
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1;
+            background: linear-gradient(45deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .nutrition-section {
+            padding: 6rem 2rem;
+            background: #111;
+        }
+
+        .nutrition-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .nutrition-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nutrition-card h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .nutrition-table th,
+        .nutrition-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+
+        .nutrition-card ul {
+            list-style: none;
+        }
+
+        .nutrition-card ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .buy-section {
+            padding: 6rem 2rem;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .buy-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .buy-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price-tag {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 2rem 0;
+        }
+
+        .buy-button {
+            padding: 1.5rem 3rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        .certificates {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .certificate {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        footer {
+            background: black;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .feature-card {
+                margin-bottom: 1rem;
+            }
+
+            .nav-content .logo img {
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="logo-icon">
+            <img src="assets/images/logo/logo.png" alt="OPTI24 Logo">
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <img src="assets/images/logo/logo.png" alt="OPTI24 Logo">
+                <span>OPTI24</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>LIONS MANE</h1>
+            <p>Premium Mushroom Capsules</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3>Pure & Natural</h3>
+                    <p>Premium organic Lions Mane mushroom</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Lab Tested</h3>
+                    <p>Verified for purity and potency</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Vegan Friendly</h3>
+                    <p>100% plant-based capsules</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="assets/images/product/productimage.png" alt="OPTI24 Lions Mane Capsules">
+        </div>
+    </section>
+
+    <section class="nutrition-section">
+        <div class="nutrition-container">
+            <div class="nutrition-card">
+                <h2>Nutrition Facts</h2>
+                <table class="nutrition-table">
+                    <tr>
+                        <td>Serving Size:</td>
+                        <td>2 Capsules</td>
+                    </tr>
+                    <tr>
+                        <td>Amount per serving:</td>
+                        <td>500mg</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="nutrition-card">
+                <h2>Product Details</h2>
+                <ul>
+                    <li>60 Capsules per bottle</li>
+                    <li>500mg per capsule</li>
+                    <li>30 day supply</li>
+                    <li>GMO-free</li>
+                    <li>Made in certified facility</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="buy-section">
+        <div class="buy-container">
+            <h2>Experience OPTI24</h2>
+            <div class="price-tag">$49.99</div>
+            <button class="buy-button">
+                <i class="fas fa-shopping-cart"></i>
+                Purchase Now
+            </button>
+            <div class="certificates">
+                <div class="certificate">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="certificate">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="certificate">
+                    <i class="fas fa-seedling"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 OPTI24. All rights reserved.</p>
+        <p>Contact: support@opti24.com</p>
+    </footer>
+
+    <script>
+        // Handle image loading errors
+        document.querySelectorAll('img').forEach(img => {
+            img.onerror = function() {
+                console.error('Error loading image:', img.src);
+                if (img.closest('.logo-icon') || img.closest('.nav-content')) {
+                    img.style.display = 'none';
+                }
+            };
+        });
+
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('fade-out');
+            }, 1500);
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize buy button
+        document.querySelector('.buy-button').addEventListener('click', () => {
+            // Add your Stripe integration here
+            console.log('Processing purchase');
+        });
+    </script>
+</body>
+</html>
