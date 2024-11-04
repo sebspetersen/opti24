@@ -25,6 +25,9 @@ app.post('/create-checkout-session', async (req, res) => {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             allow_promotion_codes: true,
+            customer_creation: 'always',         // Added this line
+            customer_email_collection: true,     // Added this line
+            receipt_email: '{{customer_email}}', // Added this line
             line_items: [
                 {
                     price_data: {
@@ -61,7 +64,8 @@ app.post('/create-checkout-session', async (req, res) => {
             payment_intent_data: {
                 metadata: {
                     product: 'Lions Mane Kapsler',
-                    quantity: quantity || 1
+                    quantity: quantity || 1,
+                    shipping_method: 'PostNord' // Added this line for receipt details
                 }
             },
             shipping_options: [
@@ -85,7 +89,7 @@ app.post('/create-checkout-session', async (req, res) => {
                         },
                     },
                 }
-            ], // Added closing bracket here
+            ],
             phone_number_collection: {
                 enabled: true // Collect phone number for shipping
             }
