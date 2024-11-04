@@ -25,8 +25,7 @@ app.post('/create-checkout-session', async (req, res) => {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             allow_promotion_codes: true,
-            customer_creation: 'always',         // Added this line
-            customer_email_collection: true,     // Added this line
+            customer_creation: 'if_required',
             line_items: [
                 {
                     price_data: {
