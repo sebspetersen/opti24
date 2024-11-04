@@ -4,13 +4,6 @@ require('dotenv').config();
 const express = require('express');
 const Stripe = require('stripe');
 
-app.use((req, res, next) => {
-    if (!req.hostname.startsWith('www')) {  // Changed this condition
-        return res.redirect(301, `https://www.${req.hostname}${req.url}`);
-    }
-    next();
-});
-
 // Check if we have the API key
 if (!process.env.STRIPE_SECRET_KEY) {
     console.error('Missing STRIPE_SECRET_KEY in environment variables');
