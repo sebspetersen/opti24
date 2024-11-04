@@ -84,7 +84,8 @@ app.post('/create-checkout-session', async (req, res) => {
                             },
                         },
                     },
-                },
+                }
+            ], // Added closing bracket here
             phone_number_collection: {
                 enabled: true // Collect phone number for shipping
             }
