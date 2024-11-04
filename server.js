@@ -89,10 +89,10 @@ app.post('/create-checkout-session', async (req, res) => {
                     shipping_rate_data: {
                         type: 'fixed_amount',
                         fixed_amount: {
-                            amount: 4900, // 49 DKK in øre
+                            amount: 0000, // 49 DKK in øre
                             currency: 'dkk',
                         },
-                        display_name: 'GLS Levering',
+                        display_name: 'Fri Levering',
                         delivery_estimate: {
                             minimum: {
                                 unit: 'business_day',
