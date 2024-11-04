@@ -27,7 +27,6 @@ app.post('/create-checkout-session', async (req, res) => {
             allow_promotion_codes: true,
             customer_creation: 'always',         // Added this line
             customer_email_collection: true,     // Added this line
-            receipt_email: '{{customer_email}}', // Added this line
             line_items: [
                 {
                     price_data: {
