@@ -5,7 +5,7 @@ const express = require('express');
 const Stripe = require('stripe');
 
 app.use((req, res, next) => {
-    if (!req.hostname.startsWith('www.')) {
+    if (!req.hostname.startsWith('www')) {  // Changed this condition
         return res.redirect(301, `https://www.${req.hostname}${req.url}`);
     }
     next();
