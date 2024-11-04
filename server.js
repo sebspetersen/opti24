@@ -85,27 +85,6 @@ app.post('/create-checkout-session', async (req, res) => {
                         },
                     },
                 },
-                {
-                    shipping_rate_data: {
-                        type: 'fixed_amount',
-                        fixed_amount: {
-                            amount: 0000, // 49 DKK in øre
-                            currency: 'dkk',
-                        },
-                        display_name: 'Fri Levering',
-                        delivery_estimate: {
-                            minimum: {
-                                unit: 'business_day',
-                                value: 1,
-                            },
-                            maximum: {
-                                unit: 'business_day',
-                                value: 2,
-                            },
-                        },
-                    },
-                }
-            ],
             phone_number_collection: {
                 enabled: true // Collect phone number for shipping
             }
